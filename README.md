@@ -1,1 +1,1 @@
-Extracts Android (Pico) Firmwares and sorting all Firmware APKS into folders named their package name
+Extracts Android (Pico) Firmwares or sorting all Firmware APKS into folders named their package name
