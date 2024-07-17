@@ -127,7 +127,22 @@ def image():
     output_dir = os.path.join(script_dir, "Image")
     print("Extracting vendor.ext4 image...")
     extract_files(image_path, output_dir)
-    apks()
+    sortapks = input("\n\nDo you want to sort the Firmware apks into folders with their package name and delete all other files? [y]es / [n]o\n\nYour choice: ")
+
+    while sortapks.lower() not in ["y", "yes", "n", "no"]:
+        print("Invalid input. Please enter '[y]es' or '[n]o'.")
+        sortapks = input("Do you want to sort the Firmware apks into folders with their package name and delete all other files? [y]es / [n]o\n\nYour choice: ")
+
+    if sortapks.lower() in ["y", "yes"]:
+        apks()
+    if sortapks.lower() in ["n", "no"]:
+        image_path = os.path.join(script_dir, "image", "system.ext4")
+        image_path1 = os.path.join(script_dir, "image", "product.ext4")
+        image_path2 = os.path.join(script_dir, "image", "vendor.ext4")
+        os.remove(image_path)
+        os.remove(image_path1)
+        os.remove(image_path2)
+        return True
 
 #def image():
 #        print("")
@@ -177,7 +192,10 @@ if __name__ == "__main__":
 
     select_zip()
     brotli()
-    image()
+    process = image()
+    if process == True:
+        input("Firmware Extracted\nDone")
+        exit()
     sorting()
     sys.exit()
 
